@@ -1,4 +1,5 @@
 ﻿using System;
+using Mono.Addins;
 using MonoDevelop.Components.Commands;
 
 namespace SnippetManager
@@ -7,6 +8,18 @@ namespace SnippetManager
 	{
 		protected override void Run()
 		{
+			
+
+			var fDlg = new FileDialog();
+
+
+			var result = fDlg.ShowDialog();
+
+
+			if (string.IsNullOrWhiteSpace(result))
+			{
+				
+			}
 
 		}
 
