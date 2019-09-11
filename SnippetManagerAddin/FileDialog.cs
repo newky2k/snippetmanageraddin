@@ -1,7 +1,7 @@
 ﻿using System;
 using MonoDevelop.Components;
 
-namespace SnippetManager
+namespace SnippetManagerAddin
 {
 	public class FileDialog : FileEntry
 	{

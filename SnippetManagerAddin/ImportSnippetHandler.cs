@@ -2,7 +2,7 @@
 using Mono.Addins;
 using MonoDevelop.Components.Commands;
 
-namespace SnippetManager
+namespace SnippetManagerAddin
 {
 	public class ImportSnippetHandler : CommandHandler
 	{

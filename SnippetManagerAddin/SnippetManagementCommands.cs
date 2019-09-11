@@ -1,5 +1,6 @@
 ﻿using System;
-namespace SnippetManager
+
+namespace SnippetManagerAddin
 {
 	public enum SnippetManagementCommands
 	{
