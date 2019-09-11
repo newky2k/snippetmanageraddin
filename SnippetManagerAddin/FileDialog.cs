@@ -1,5 +1,6 @@
 ﻿using System;
 using MonoDevelop.Components;
+using MonoDevelop.Components.Extensions;
 
 namespace SnippetManagerAddin
 {
@@ -8,7 +9,11 @@ namespace SnippetManagerAddin
 
 		public string ShowDialog()
 		{
-			var result = ShowBrowseDialog("", null);
+            this.Action = FileChooserAction.FileFlags;
+
+            this.FileFilters.AddFilter(new SelectFileDialogFilter("Snipter"));
+
+            var result = ShowDialog();
 
 			return result;
 		}

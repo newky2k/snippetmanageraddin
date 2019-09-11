@@ -1,6 +1,10 @@
 ﻿using System;
 using Mono.Addins;
+using MonoDevelop.Components;
 using MonoDevelop.Components.Commands;
+using MonoDevelop.Components.Extensions;
+using MonoDevelop.Core;
+using MonoDevelop.Ide;
 
 namespace SnippetManagerAddin
 {
@@ -8,18 +12,34 @@ namespace SnippetManagerAddin
 	{
 		protected override void Run()
 		{
-			
 
-			var fDlg = new FileDialog();
+            var dlg = new SelectFileDialog(GettextCatalog.GetString("Select XSLT Stylesheet"))
+            {
+                TransientFor = IdeApp.Workbench.RootWindow,
+            };
+
+            dlg.AddFilter(new SelectFileDialogFilter(
+                GettextCatalog.GetString("Snippet Files"),
+                new string[] { "*.snippet" },
+                new string[] { "text/xml", "application/xml" }
+            ));
+
+            dlg.AddAllFilesFilter();
+
+            if (dlg.Run())
+            {
+                var result = dlg.SelectedFile;
 
 
-			var result = fDlg.ShowDialog();
+                if (string.IsNullOrWhiteSpace(result))
+                {
+                    var codeTemp = new MonoDevelop.Ide.CodeTemplates.CodeTemplate();
 
 
-			if (string.IsNullOrWhiteSpace(result))
-			{
-				
-			}
+                }
+            }
+
+
 
 		}
 
