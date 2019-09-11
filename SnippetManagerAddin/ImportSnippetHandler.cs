@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 using Mono.Addins;
@@ -20,36 +21,26 @@ namespace SnippetManagerAddin
 		protected override void Run()
 		{
 
-            var dlg = new SelectFileDialog(GettextCatalog.GetString("Select XSLT Stylesheet"))
+            var dlg = new FileDialog();
+
+            var result = dlg.ShowDialog();
+
+            if (!string.IsNullOrWhiteSpace(result))
             {
-                TransientFor = IdeApp.Workbench.RootWindow,
-            };
-
-            dlg.AddFilter(new SelectFileDialogFilter(
-                GettextCatalog.GetString("Snippet Files"),
-                new string[] { "*.snippet" },
-                new string[] { "text/xml", "application/xml" }
-            ));
-
-            dlg.AddAllFilesFilter();
-
-            if (dlg.Run())
-            {
+                
                 try
                 {
-                    var result = dlg.SelectedFile;
 
                     if (!string.IsNullOrWhiteSpace(result) && File.Exists(result))
                     {
-                        
-                         CodeSnippets snippet;
+
+                        CodeSnippets snippet;
 
                         using (var txtReader = new XmlTextReader(result))
                         {
                             var xmlSerializer = new XmlSerializer(typeof(CodeSnippets));
                             snippet = xmlSerializer.Deserialize(txtReader) as CodeSnippets;
 
-                            var title = snippet.CodeSnippet;
                         }
 
                         var vs4mCodeTemplae = new CodeTemplate()
@@ -64,6 +55,20 @@ namespace SnippetManagerAddin
                         {
                             vs4mCodeTemplae.Group = "C#";
                             vs4mCodeTemplae.MimeType = "text/x-csharp";
+                        }
+
+                        var templates = CodeTemplateService.GetCodeTemplates(vs4mCodeTemplae.MimeType);
+
+                        var exist = templates.FirstOrDefault(x => x.Shortcut.Equals(vs4mCodeTemplae.Shortcut));
+
+                        if (exist != null)
+                        {
+                            var confirm = MessageService.Confirm("Snippet Exists", $"A code snippet already exists with the shortcut {vs4mCodeTemplae.Shortcut}. Do you want to overwrite it?", AlertButton.Yes);
+
+                            if (!confirm)
+                                return;
+                            else
+                                CodeTemplateService.DeleteTemplate(exist);
                         }
 
 
@@ -85,30 +90,16 @@ namespace SnippetManagerAddin
                         if (File.Exists(outPutFile))
                             File.Delete(outPutFile);
 
-                        
-                        var templates = CodeTemplateService.GetCodeTemplates("text/x-csharp");
-
-                        var exist = templates.FirstOrDefault(x => x.Shortcut.Equals(vs4mCodeTemplae.Shortcut));
-
-                        if (exist != null)
-                        {
-                            return;
-                        }
-
                         CodeTemplateService.SaveTemplate(vs4mCodeTemplae);
+
 
                     }
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine(ex.Message);
+                    MessageService.ShowError("Import Error Occured", ex);
                 }
-
-                
             }
-
-
-
 		}
 
 		protected override void Update(CommandInfo info)

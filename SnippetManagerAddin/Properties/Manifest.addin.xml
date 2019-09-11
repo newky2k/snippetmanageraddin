@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ExtensionModel>    
     <Extension path = "/MonoDevelop/Ide/Commands/Tools">
-        <Command id = "SnippetManagerAddin.SnippetManagementCommands.Import" _label = "Import Snippet" defaultHandler = "SnippetManagerAddin.ImportSnippetHandler" />
+        <Command id = "SnippetManagerAddin.SnippetManagementCommands.Import" _label = "Import Windows Snippet" defaultHandler = "SnippetManagerAddin.ImportSnippetHandler" />
     </Extension>
 
     <Extension path = "/MonoDevelop/Ide/MainMenu/Tools">

@@ -33,7 +33,7 @@ using Mono.Addins.Description;
     Version = "1.0"
 )]
 
-[assembly: AddinName("SnippetManagerAddin")]
+[assembly: AddinName("Snippet Manager Addin")]
 [assembly: AddinCategory("IDE extensions")]
-[assembly: AddinDescription("SnippetManagerAddin")]
+[assembly: AddinDescription("Snippet Manager for importing snippets from Visual Studio on Windows")]
 [assembly: AddinAuthor("David Humphreys")]
