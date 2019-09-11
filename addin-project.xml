@@ -1,0 +1,7 @@
+<AddinProject appVersion="8.0">
+    <Project platforms="Mac Win32">
+        <AddinFile>SnippetManagerAddin/bin/Release/net471/SnippetManagerAddin.dll</AddinFile>
+        <BuildFile>SnippetManagerAddin.sln</BuildFile>
+        <BuildConfiguration>Release</BuildConfiguration>
+    </Project>
+</AddinProject>
