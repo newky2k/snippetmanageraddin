@@ -45,6 +45,11 @@ namespace SnippetManagerAddin
     {
         [XmlElement(ElementName = "Literal", Namespace = "http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet")]
         public List<Literal> Literal { get; set; }
+
+        public Declarations()
+        {
+            Literal = new List<Literal>();
+        }
     }
 
     [XmlRoot(ElementName = "Code", Namespace = "http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet")]
@@ -63,6 +68,11 @@ namespace SnippetManagerAddin
         public Declarations Declarations { get; set; }
         [XmlElement(ElementName = "Code", Namespace = "http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet")]
         public Code Code { get; set; }
+
+        public Snippet()
+        {
+            Declarations = new Declarations();
+        }
     }
 
     [XmlRoot(ElementName = "CodeSnippet", Namespace = "http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet")]

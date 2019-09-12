@@ -71,7 +71,6 @@ namespace SnippetManagerAddin
                                 CodeTemplateService.DeleteTemplate(exist);
                         }
 
-
                         foreach (var aDeclaration in snippet.CodeSnippet.Snippet.Declarations.Literal)
                         {
                             vs4mCodeTemplae.AddVariable(new CodeTemplateVariable()
@@ -92,7 +91,7 @@ namespace SnippetManagerAddin
 
                         CodeTemplateService.SaveTemplate(vs4mCodeTemplae);
 
-
+                        MessageService.ShowMessage($"Import complete. {Environment.NewLine} You may need to restart Visual Studio to activate the snippet");
                     }
                 }
                 catch (Exception ex)
