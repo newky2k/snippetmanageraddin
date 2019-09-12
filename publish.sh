@@ -1,0 +1,1 @@
+mono /Applications/Visual\ Studio.app/Contents/Resources/lib/monodevelop/bin/vstool.exe setup pack SnippetManagerAddin/bin/release/net471/SnippetManagerAddin.dll
